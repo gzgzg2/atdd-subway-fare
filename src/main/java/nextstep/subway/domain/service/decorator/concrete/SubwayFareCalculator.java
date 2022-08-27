@@ -16,7 +16,7 @@ public class SubwayFareCalculator {
         return new AgeSurchargeDecorator(getLineSurchargeDecorator(path), member);
     }
 
-    private LineSurchargeDecorator getLineSurchargeDecorator(Path path) {
+    private SurchargeCalculator getLineSurchargeDecorator(Path path) {
         return new LineSurchargeDecorator(getDistanceCalculator(path.extractDistance()), path.findIncludedLines());
     }
 

@@ -34,7 +34,7 @@ public class PathService {
         return PathResponse.of(path, calculateFare(username, path));
     }
 
-    private Integer calculateFare(String username, Path path) {
+    private int calculateFare(String username, Path path) {
         Member findMember = memberService.findMemberByUsername(username);
         return subwayFareCalculator.execute(findMember, path);
     }

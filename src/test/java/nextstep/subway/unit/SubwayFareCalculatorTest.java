@@ -15,8 +15,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FareDecoratorTest {
+public class SubwayFareCalculatorTest {
 
+    public static final int 청소년과_어린이_공제_금액 = 350;
+    public static final double 어린이_할인율 = 0.5;
+    public static final double 청소년_할인율 = 0.8;
     Member 어린이;
     Member 청소년;
     Member 성인;
@@ -64,7 +67,7 @@ public class FareDecoratorTest {
                 new LineSurchargeDecorator(new DistanceSurchargeCalculate(50), lines)
                 , 어린이);
 
-        int fare = (int) ((3050 - 350) * 0.5);
+        int fare = (int) ((3050 - 청소년과_어린이_공제_금액) * 어린이_할인율);
 
         assertThat(fareCalculator.appendFare()).isEqualTo(fare);
     }
@@ -84,7 +87,7 @@ public class FareDecoratorTest {
                 new LineSurchargeDecorator(new DistanceSurchargeCalculate(50), lines)
                 , 청소년);
 
-        int fare = (int) ((3050 - 350) * 0.8);
+        int fare = (int) ((3050 - 350) * 청소년_할인율);
 
         assertThat(fareCalculator.appendFare()).isEqualTo(fare);
     }

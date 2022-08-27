@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import support.auth.authorization.AuthenticationPrincipal;
-import support.auth.userdetails.UserDetails;
+import support.auth.userdetails.User;
 
 @RestController
 public class PathController {
-    private PathService pathService;
+    private final PathService pathService;
 
     public PathController(PathService pathService) {
         this.pathService = pathService;
@@ -21,12 +21,12 @@ public class PathController {
 
     @GetMapping("/paths")
     public ResponseEntity<PathResponse> findPath(
-            @AuthenticationPrincipal UserDetails user,
+            @AuthenticationPrincipal User user,
             @RequestParam Long source,
             @RequestParam Long target,
             @RequestParam("type") PathType type)
     {
         PathDto pathDto = PathDto.of(source, target, type);
-        return ResponseEntity.ok(pathService.findPath((String) user.getUsername(), pathDto));
+        return ResponseEntity.ok(pathService.findPath(user.getUsername(), pathDto));
     }
 }
